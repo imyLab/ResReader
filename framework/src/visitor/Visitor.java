@@ -10,37 +10,18 @@ import message.MessageUpload;
 
 public interface Visitor {
 
-	public static enum RequestType {
+	public abstract void encode(Message m);
 
-		Encode, Decode
-	}
+	public abstract void encode(MessageAuthentification ma);
 
-	void encode(Message m);
+	public abstract void encode(MessageACK mack);
 
-	void encode(MessageAuthentification ma);
+	public abstract void encode(MessageDownload md);
 
-	void encode(MessageACK mack);
+	public abstract void encode(MessageUpload mu);
 
-	void encode(MessageDownload md);
+	public abstract void encode(MessageStop ms);
 
-	void encode(MessageUpload mu);
-
-	void encode(MessageStop ms);
-
-	void encode(MessageListOfPics ml);
-
-	void decode(Message m);
-
-	MessageAuthentification decodeMessageAuthentification();
-
-	MessageACK decodeMessageACK();
-
-	MessageDownload decodeMessageDownload();
-
-	MessageUpload decodeMessageUpload();
-
-	MessageStop decodeMessageStop();
-
-	MessageListOfPics decodeMessageListOfPics();
+	public abstract void encode(MessageListOfPics ml);
 
 }
