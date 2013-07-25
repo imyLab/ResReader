@@ -3,12 +3,11 @@ package message;
 import java.awt.Image;
 
 import visitor.Visitor;
-import visitor.Visitor.RequestType;
 
 public class MessageUpload extends Message {
 
 	private int IdPic;
-	public Image img;
+	private Image img;
 
 	public Image getImg() {
 		return img;
@@ -23,12 +22,10 @@ public class MessageUpload extends Message {
 	}
 
 	@Override
-	public void accept(Visitor visitor, RequestType t) {
-		if (t.equals(RequestType.Encode)) {
-			visitor.encode(this);
-		} else if (t.equals(RequestType.Decode)) {
-			visitor.decodeMessageUpload();
-		}
+	public void accept(Visitor visitor) {
+
+		visitor.encode(this);
+
 	}
 
 	public int getIdPic() {

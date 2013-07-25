@@ -1,19 +1,16 @@
 package message;
 
 import visitor.Visitor;
-import visitor.Visitor.RequestType;
 
 public class MessageAuthentification extends Message {
 
 	private int UId;
 
 	@Override
-	public void accept(Visitor visitor, Visitor.RequestType t) {
-		if (t.equals(RequestType.Encode)) {
+	public void accept(Visitor visitor) {
+
 			visitor.encode(this);
-		} else if (t.equals(RequestType.Decode)) {
-			visitor.decodeMessageAuthentification();
-		}
+
 
 	}
 

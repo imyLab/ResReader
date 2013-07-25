@@ -3,7 +3,6 @@ package message;
 import java.awt.Image;
 
 import visitor.Visitor;
-import visitor.Visitor.RequestType;
 
 public class MessageDownload extends Message {
 
@@ -31,11 +30,9 @@ public class MessageDownload extends Message {
 	}
 
 	@Override
-	public void accept(Visitor visitor, RequestType t) {
-		if (t.equals(RequestType.Encode)) {
+	public void accept(Visitor visitor) {
+
 			visitor.encode(this);
-		} else if (t.equals(RequestType.Decode)) {
-			visitor.decodeMessageDownload();
-		}
+		
 	}
 }

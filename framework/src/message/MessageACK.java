@@ -1,20 +1,20 @@
 package message;
 
 import visitor.Visitor;
-import visitor.Visitor.RequestType;
 
 public class MessageACK extends Message {
+
+	public enum MessageType {
+		Ok, Error
+	}
 
 	private MessageType type;
 	private String description;
 
 	@Override
-	public void accept(Visitor visitor, RequestType t) {
-		if (t.equals(RequestType.Encode)) {
-			visitor.encode(this);
-		} else if (t.equals(RequestType.Decode)) {
-			visitor.decodeMessageACK();
-		}
+	public void accept(Visitor visitor) {
+
+		visitor.encode(this);
 
 	}
 

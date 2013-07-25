@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import visitor.Visitor;
-import visitor.Visitor.RequestType;
 
 public class MessageListOfPics extends Message {
 
@@ -19,12 +18,10 @@ public class MessageListOfPics extends Message {
 	}
 
 	@Override
-	public void accept(Visitor visitor, RequestType t) {
-		if (t.equals(RequestType.Encode)) {
+	public void accept(Visitor visitor) {
+
 			visitor.encode(this);
-		} else if (t.equals(RequestType.Decode)) {
-			visitor.decodeMessageListOfPics();
-		}
+
 	}
 
 }
