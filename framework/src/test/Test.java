@@ -1,9 +1,8 @@
 package test;
 
-import visitor.DumpVisitor;
-import message.Message.MessageType;
 import message.MessageACK;
 import message.MessageAuthentification;
+import visitor.DumpVisitor;
 
 public class Test {
 
@@ -17,16 +16,13 @@ public class Test {
 		MessageAuthentification ma = new MessageAuthentification();
 		MessageACK mack = new MessageACK();
 		ma.setUId(1004);
-		mack.setDescription(" Tout va bien ");
-		mack.setType(MessageType.Ok);
-		dv.setMa(ma);
-		dv.setMack(mack);
-		dv.encode(ma);
+		mack.setDescription("Everything s fine");
+
 		dv.encode(mack);
-		dv.decodeMessageACK();
-		dv.decodeMessageAuthentification();
-		//hello hi
+		dv.encode(ma);
 		
+		//hello hi
+	
 	}
 
 }
