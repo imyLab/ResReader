@@ -1,10 +1,11 @@
-package test;
+package fr.labkira.visitor;
 
 import java.util.UUID;
 
-import message.MessageACK;
-import message.MessageAuthentification;
-import visitor.DumpVisitor;
+import fr.labkira.message.MessageACK;
+import fr.labkira.message.MessageAuthentification;
+import fr.labkira.visitor.DumpVisitor;
+
 
 public class TestMessages {
 

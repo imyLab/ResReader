@@ -1,9 +1,10 @@
-package message;
+package fr.labkira.message;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import visitor.Visitor;
+import fr.labkira.visitor.Visitor;
+
 
 public class MessageListOfPics extends Message {
 

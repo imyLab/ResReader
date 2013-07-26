@@ -1,6 +1,6 @@
-package message;
+package fr.labkira.message;
 
-import visitor.Visitor;
+import fr.labkira.visitor.Visitor;
 
 public abstract class Message {
 

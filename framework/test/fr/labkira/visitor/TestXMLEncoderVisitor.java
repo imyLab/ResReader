@@ -1,4 +1,4 @@
-package test;
+package fr.labkira.visitor;
 
 import java.io.ByteArrayOutputStream;
 import java.util.UUID;
@@ -6,9 +6,10 @@ import java.util.UUID;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
-import visitor.XMLEncodoerVisitor;
+import fr.labkira.message.MessageAuthentification;
+import fr.labkira.visitor.XMLEncodoerVisitor;
 
-import message.MessageAuthentification;
+
 
 public class TestXMLEncoderVisitor {
 

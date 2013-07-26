@@ -1,4 +1,4 @@
-package visitor;
+package fr.labkira.visitor;
 
 import java.io.OutputStream;
 
@@ -15,13 +15,14 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import message.Message;
-import message.MessageACK;
-import message.MessageAuthentification;
-import message.MessageDownload;
-import message.MessageListOfPics;
-import message.MessageStop;
-import message.MessageUpload;
+import fr.labkira.message.Message;
+import fr.labkira.message.MessageACK;
+import fr.labkira.message.MessageAuthentification;
+import fr.labkira.message.MessageDownload;
+import fr.labkira.message.MessageListOfPics;
+import fr.labkira.message.MessageStop;
+import fr.labkira.message.MessageUpload;
+
 
 public class XMLEncodoerVisitor implements Visitor {
 

@@ -1,8 +1,9 @@
-package message;
+package fr.labkira.message;
 
 import java.awt.Image;
 
-import visitor.Visitor;
+import fr.labkira.visitor.Visitor;
+
 
 public class MessageDownload extends Message {
 

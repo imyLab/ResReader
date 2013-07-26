@@ -1,8 +1,9 @@
-package message;
+package fr.labkira.message;
 
 import java.util.UUID;
 
-import visitor.Visitor;
+import fr.labkira.visitor.Visitor;
+
 
 public class MessageAuthentification extends Message {
 

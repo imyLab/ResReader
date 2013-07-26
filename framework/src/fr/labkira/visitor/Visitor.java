@@ -1,12 +1,12 @@
-package visitor;
+package fr.labkira.visitor;
 
-import message.Message;
-import message.MessageACK;
-import message.MessageAuthentification;
-import message.MessageDownload;
-import message.MessageListOfPics;
-import message.MessageStop;
-import message.MessageUpload;
+import fr.labkira.message.Message;
+import fr.labkira.message.MessageACK;
+import fr.labkira.message.MessageAuthentification;
+import fr.labkira.message.MessageDownload;
+import fr.labkira.message.MessageListOfPics;
+import fr.labkira.message.MessageStop;
+import fr.labkira.message.MessageUpload;
 
 public interface Visitor {
 
