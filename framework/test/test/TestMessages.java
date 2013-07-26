@@ -6,7 +6,7 @@ import message.MessageACK;
 import message.MessageAuthentification;
 import visitor.DumpVisitor;
 
-public class Test {
+public class TestMessages {
 
 	/**
 	 * @param args
