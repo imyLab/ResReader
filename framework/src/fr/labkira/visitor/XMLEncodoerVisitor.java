@@ -23,7 +23,6 @@ import fr.labkira.message.MessageListOfPics;
 import fr.labkira.message.MessageStop;
 import fr.labkira.message.MessageUpload;
 
-
 public class XMLEncodoerVisitor implements Visitor {
 
 	public static final String MESSAGE_TYPE_ATTRIBUTE = "type";
@@ -52,6 +51,14 @@ public class XMLEncodoerVisitor implements Visitor {
 		this.xmlDoc.appendChild(this.rootElement);
 	}
 
+	/**
+	 * This method write the content of {@link #xmlDoc} in the specified
+	 * {@link OutputStream} os
+	 * 
+	 * @param os
+	 *            the {@link OutputStream} to put the content
+	 * @throws TransformerException
+	 */
 	public void writeDocTo(OutputStream os) throws TransformerException {
 
 		if (this.xmlDoc == null)
