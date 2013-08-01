@@ -7,7 +7,8 @@ import fr.labkira.visitor.Visitor;
 
 public class MessageAuthentification extends Message {
 
-	private UUID UId;
+	private UUID UId; 
+	private String password;
 
 	@Override
 	public void accept(Visitor visitor) {
@@ -22,6 +23,14 @@ public class MessageAuthentification extends Message {
 
 	public void setUId(UUID uId) {
 		UId = uId;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }

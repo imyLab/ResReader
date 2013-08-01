@@ -1,13 +1,14 @@
 package fr.labkira.message;
 
 import java.awt.Image;
+import java.util.UUID;
 
 import fr.labkira.visitor.Visitor;
 
 
 public class MessageUpload extends Message {
 
-	private int IdPic;
+	private UUID IdPic;
 	private Image img;
 
 	public Image getImg() {
@@ -29,11 +30,11 @@ public class MessageUpload extends Message {
 
 	}
 
-	public int getIdPic() {
+	public UUID getIdPic() {
 		return IdPic;
 	}
 
-	public void setIdPic(int idPic) {
+	public void setIdPic(UUID idPic) {
 		IdPic = idPic;
 	}
 
