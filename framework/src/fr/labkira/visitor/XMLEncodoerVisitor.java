@@ -147,8 +147,11 @@ public class XMLEncodoerVisitor implements Visitor {
 
 	@Override
 	public void encode(MessageStop ms) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("needs implementation");
+		this.rootElement.setAttribute(MESSAGE_TYPE_ATTRIBUTE,
+				MessageDownload.class.getName());
+		Element stop = this.xmlDoc.createElement("stop");
+		this.rootElement.appendChild(stop);
+		
 	}
 
 	@Override
