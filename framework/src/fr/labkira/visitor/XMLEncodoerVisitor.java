@@ -87,30 +87,62 @@ public class XMLEncodoerVisitor implements Visitor {
 		Element uuid = this.xmlDoc.createElement("uuid");
 		uuid.appendChild(this.xmlDoc.createTextNode(ma.getUId().toString()));
 
-		// Password ??
+		
 		Element psswd = this.xmlDoc.createElement("password");
-		psswd.appendChild(this.xmlDoc.createTextNode("password here"));
+		psswd.appendChild(this.xmlDoc.createTextNode(ma.getPassword()));
 
 		this.rootElement.appendChild(uuid);
+		this.rootElement.appendChild(psswd);
+
 
 	}
 
 	@Override
 	public void encode(MessageACK mack) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("needs implementation");
+		this.rootElement.setAttribute(MESSAGE_TYPE_ATTRIBUTE,
+				MessageACK.class.getName());
+
+		Element type = this.xmlDoc.createElement("type");
+		type.appendChild(this.xmlDoc.createTextNode(mack.getType().toString()));
+
+		
+		Element description = this.xmlDoc.createElement("description");
+		description.appendChild(this.xmlDoc.createTextNode(mack.getDescription()));
+
+		this.rootElement.appendChild(type);
+		this.rootElement.appendChild(description);
 	}
 
 	@Override
 	public void encode(MessageDownload md) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("needs implementation");
+		this.rootElement.setAttribute(MESSAGE_TYPE_ATTRIBUTE,
+				MessageDownload.class.getName());
+
+		Element uuid = this.xmlDoc.createElement("uuid");
+		uuid.appendChild(this.xmlDoc.createTextNode(md.getUIdPic().toString()));
+
+		
+		Element img = this.xmlDoc.createElement("image");
+		img.appendChild(this.xmlDoc.createTextNode(md.getImg().toString()));
+
+		this.rootElement.appendChild(uuid);
+		this.rootElement.appendChild(img);
 	}
 
 	@Override
 	public void encode(MessageUpload mu) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("needs implementation");
+		this.rootElement.setAttribute(MESSAGE_TYPE_ATTRIBUTE,
+				MessageUpload.class.getName());
+
+		Element uuid = this.xmlDoc.createElement("uuid");
+		uuid.appendChild(this.xmlDoc.createTextNode(mu.getIdPic().toString()));
+
+		
+		Element img = this.xmlDoc.createElement("image");
+		img.appendChild(this.xmlDoc.createTextNode(mu.getImg().toString()));
+
+		this.rootElement.appendChild(uuid);
+		this.rootElement.appendChild(img);
 	}
 
 	@Override
@@ -121,8 +153,15 @@ public class XMLEncodoerVisitor implements Visitor {
 
 	@Override
 	public void encode(MessageListOfPics ml) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("needs implementation");
+			this.rootElement.setAttribute(MESSAGE_TYPE_ATTRIBUTE,
+				MessageDownload.class.getName());
+
+		Element list = this.xmlDoc.createElement("list");
+		list.appendChild(this.xmlDoc.createTextNode(ml.getListPics().toString()));
+
+
+		this.rootElement.appendChild(list);
+		
 	}
 
 }
