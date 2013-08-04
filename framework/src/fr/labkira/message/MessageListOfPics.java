@@ -15,8 +15,8 @@ public class MessageListOfPics extends Message {
 		return listPics;
 	}
 
-	public void setListPics(Map<UUID, String> listPics) {
-		this.listPics = listPics;
+	public void setListPics(UUID id, String str) {
+		listPics.put(id, str);
 	}
 
 	@Override
