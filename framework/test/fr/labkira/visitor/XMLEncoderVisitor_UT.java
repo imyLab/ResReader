@@ -74,8 +74,8 @@ public class XMLEncoderVisitor_UT {
 	@Test
 	public void test_MessageDownload() throws TransformerException, ParserConfigurationException {
 		
-		/*
-		MessageDownload md = new MessageDownload();
+		BufferedImage img = new BufferedImage(100, 100, 100);
+		MessageDownload md = new MessageDownload(img);
 		
 		md.setUIdPic(UUID.randomUUID());
 		
@@ -91,7 +91,7 @@ public class XMLEncoderVisitor_UT {
 		
 		assertNotNull(s);
 			
-		System.out.println(content); */
+		System.out.println(content);
 	}
 	
 	@Test
@@ -129,6 +129,50 @@ public class XMLEncoderVisitor_UT {
 		assertNotNull(s);
 			
 		System.out.println(content); 
+	}
+
+	public static void main(String[] args) throws ParserConfigurationException, TransformerException {
+		// MessageAuthentification 
+		MessageAuthentification msg = new MessageAuthentification();
+		msg.setUId(UUID.randomUUID());
+		msg.setPassword("imyLab02");
+	
+		XMLEncoderVisitor encoder = new XMLEncoderVisitor();
+	
+		/* encoder.encode(msg);
+	
+		ByteArrayOutputStream s = new ByteArrayOutputStream();
+	
+		encoder.writeDocTo(s);
+		
+		String content = s.toString();
+	
+		System.out.println(content); */
+		
+		// MessageAck 
+		MessageACK mack = new MessageACK();
+		mack.setDescription(" Everything is alright ");
+		mack.setType(MessageType.Ok);
+		
+		encoder.encode(mack);
+	
+		ByteArrayOutputStream s = new ByteArrayOutputStream();
+	
+		encoder.writeDocTo(s);
+		
+		String content = s.toString();
+	
+		System.out.println(content);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
 	}
 	
 	//... need more test method as necessary...

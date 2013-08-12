@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+
 import org.apache.commons.codec.binary.Base64;
 import org.w3c.dom.Element;
 
