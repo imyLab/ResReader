@@ -1,7 +1,12 @@
 package fr.labkira.visitor;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.OutputStream;
 
+import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -11,9 +16,9 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.commons.codec.binary.Base64;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
 import fr.labkira.message.Message;
 import fr.labkira.message.MessageACK;
 import fr.labkira.message.MessageAuthentification;
@@ -86,13 +91,11 @@ public class XMLEncoderVisitor implements Visitor {
 		Element uuid = this.xmlDoc.createElement("uuid");
 		uuid.appendChild(this.xmlDoc.createTextNode(ma.getUId().toString()));
 
-		
 		Element psswd = this.xmlDoc.createElement("password");
 		psswd.appendChild(this.xmlDoc.createTextNode(ma.getPassword()));
 
 		this.rootElement.appendChild(uuid);
 		this.rootElement.appendChild(psswd);
-
 
 	}
 
@@ -104,9 +107,9 @@ public class XMLEncoderVisitor implements Visitor {
 		Element type = this.xmlDoc.createElement("type");
 		type.appendChild(this.xmlDoc.createTextNode(mack.getType().toString()));
 
-		
 		Element description = this.xmlDoc.createElement("description");
-		description.appendChild(this.xmlDoc.createTextNode(mack.getDescription()));
+		description.appendChild(this.xmlDoc.createTextNode(mack
+				.getDescription()));
 
 		this.rootElement.appendChild(type);
 		this.rootElement.appendChild(description);
@@ -114,18 +117,34 @@ public class XMLEncoderVisitor implements Visitor {
 
 	@Override
 	public void encode(MessageDownload md) {
+
+		BufferedImage img;
+		
 		this.rootElement.setAttribute(MESSAGE_TYPE_ATTRIBUTE,
 				MessageDownload.class.getName());
 
 		Element uuid = this.xmlDoc.createElement("uuid");
 		uuid.appendChild(this.xmlDoc.createTextNode(md.getUIdPic().toString()));
-
 		
-		Element img = this.xmlDoc.createElement("image");
-		img.appendChild(this.xmlDoc.createTextNode(md.getImg().toString()));
+		try {
+			img = ImageIO.read(new File("image.png"));
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ImageIO.write(img, "png", baos);
+			baos.flush();
+			String encodedImage = Base64.encodeBase64String(baos.toByteArray());
+			baos.close();
+		
+			Element image = this.xmlDoc.createElement("image");
+			image.appendChild(this.xmlDoc.createTextNode(encodedImage));
 
-		this.rootElement.appendChild(uuid);
-		this.rootElement.appendChild(img);
+			this.rootElement.appendChild(uuid);
+			this.rootElement.appendChild(image);
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
@@ -136,7 +155,6 @@ public class XMLEncoderVisitor implements Visitor {
 		Element uuid = this.xmlDoc.createElement("uuid");
 		uuid.appendChild(this.xmlDoc.createTextNode(mu.getIdPic().toString()));
 
-		
 		Element img = this.xmlDoc.createElement("image");
 		img.appendChild(this.xmlDoc.createTextNode(mu.getImg().toString()));
 
@@ -150,20 +168,20 @@ public class XMLEncoderVisitor implements Visitor {
 				MessageDownload.class.getName());
 		Element stop = this.xmlDoc.createElement("stop");
 		this.rootElement.appendChild(stop);
-		
+
 	}
 
 	@Override
 	public void encode(MessageListOfPics ml) {
-			this.rootElement.setAttribute(MESSAGE_TYPE_ATTRIBUTE,
+		this.rootElement.setAttribute(MESSAGE_TYPE_ATTRIBUTE,
 				MessageDownload.class.getName());
 
 		Element list = this.xmlDoc.createElement("list");
-		list.appendChild(this.xmlDoc.createTextNode(ml.getListPics().toString()));
-
+		list.appendChild(this.xmlDoc
+				.createTextNode(ml.getListPics().toString()));
 
 		this.rootElement.appendChild(list);
-		
+
 	}
 
 }
