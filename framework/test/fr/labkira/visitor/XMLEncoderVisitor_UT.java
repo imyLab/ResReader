@@ -74,7 +74,7 @@ public class XMLEncoderVisitor_UT {
 	@Test
 	public void test_MessageDownload() throws TransformerException, ParserConfigurationException {
 		
-		BufferedImage img = new BufferedImage(100, 100, 100);
+		BufferedImage img = new BufferedImage(100, 100, BufferedImage.TYPE_BYTE_BINARY);
 		MessageDownload md = new MessageDownload(img);
 		
 		md.setUIdPic(UUID.randomUUID());
