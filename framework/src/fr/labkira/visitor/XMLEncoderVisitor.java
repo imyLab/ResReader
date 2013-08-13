@@ -1,6 +1,7 @@
 package fr.labkira.visitor;
 
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -78,7 +79,7 @@ public class XMLEncoderVisitor implements Visitor {
 	}
 
 	@Override
-	public void encode(Message m) {
+	public void encode(Message m) throws IOException {
 		this.newSession();
 		m.accept(this);
 	}
@@ -116,34 +117,24 @@ public class XMLEncoderVisitor implements Visitor {
 	}
 
 	@Override
-	public void encode(MessageDownload md) {
-
-		BufferedImage img;
-		
+	public void encode(MessageDownload md) throws IOException {
 		this.rootElement.setAttribute(MESSAGE_TYPE_ATTRIBUTE,
-				MessageDownload.class.getName());
-
+				MessageUpload.class.getName());
+		
+		
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		
+		ImageIO.write((BufferedImage)md.getImg(), "jpeg", baos);
+		String encodedImage = Base64.encodeBase64String(baos.toByteArray());
+		
 		Element uuid = this.xmlDoc.createElement("uuid");
 		uuid.appendChild(this.xmlDoc.createTextNode(md.getUIdPic().toString()));
-		
-		try {
-			img = ImageIO.read(new File("image.png"));
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			ImageIO.write(img, "png", baos);
-			baos.flush();
-			String encodedImage = Base64.encodeBase64String(baos.toByteArray());
-			baos.close();
-		
-			Element image = this.xmlDoc.createElement("image");
-			image.appendChild(this.xmlDoc.createTextNode(encodedImage));
 
-			this.rootElement.appendChild(uuid);
-			this.rootElement.appendChild(image);
+		Element img = this.xmlDoc.createElement("image");
+		img.appendChild(this.xmlDoc.createTextNode(encodedImage));
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		this.rootElement.appendChild(uuid);
+		this.rootElement.appendChild(img);
 
 	}
 
