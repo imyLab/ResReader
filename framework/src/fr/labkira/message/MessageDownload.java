@@ -1,6 +1,7 @@
 package fr.labkira.message;
 
 import java.awt.Image;
+import java.io.IOException;
 import java.util.UUID;
 
 import fr.labkira.visitor.Visitor;
@@ -32,7 +33,7 @@ public class MessageDownload extends Message {
 	}
 
 	@Override
-	public void accept(Visitor visitor) {
+	public void accept(Visitor visitor) throws IOException {
 
 			visitor.encode(this);
 		
