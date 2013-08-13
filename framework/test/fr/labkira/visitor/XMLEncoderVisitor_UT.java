@@ -8,8 +8,11 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.UUID;
 
+import javax.imageio.ImageIO;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
@@ -53,10 +56,13 @@ public class XMLEncoderVisitor_UT {
 	public void test_MessageAuthentication() throws TransformerException, ParserConfigurationException {
 		
 		MessageAuthentification msg = new MessageAuthentification();
-		msg.setUId(UUID.randomUUID());
+		UUID id = UUID.randomUUID();
+		
+		msg.setUId(id);
 		msg.setPassword("imyLab02");
 		
-		assertEquals(UUID.randomUUID(), msg.getUId());
+		
+		assertEquals(id, msg.getUId());
 		assertEquals("imyLab02", msg.getPassword());
 
 		XMLEncoderVisitor encoder = new XMLEncoderVisitor();
@@ -72,15 +78,19 @@ public class XMLEncoderVisitor_UT {
 	}
 	
 	@Test
-	public void test_MessageDownload() throws TransformerException, ParserConfigurationException {
+	public void test_MessageDownload() throws TransformerException, ParserConfigurationException, IOException {
 		
-		BufferedImage img = new BufferedImage(100, 100, BufferedImage.TYPE_BYTE_BINARY);
+		File file = new File ("C:\\Users\\Imy\\Downloads\\image.jpeg");
+		BufferedImage img = ImageIO.read(file);
 		MessageDownload md = new MessageDownload(img);
+		UUID id = UUID.randomUUID();
 		
-		md.setUIdPic(UUID.randomUUID());
+		md.setUIdPic(id);
 		
-		assertEquals(UUID.randomUUID(), md.getUIdPic());
-		assertEquals("imyLab02", md.getImg());
+		
+		
+		assertEquals(id, md.getUIdPic());
+		assertEquals(img, md.getImg());
 
 		XMLEncoderVisitor encoder = new XMLEncoderVisitor();
 		encoder.encode(md);
