@@ -131,49 +131,4 @@ public class XMLEncoderVisitor_UT {
 		System.out.println(content); 
 	}
 
-	public static void main(String[] args) throws ParserConfigurationException, TransformerException {
-		// MessageAuthentification 
-		MessageAuthentification msg = new MessageAuthentification();
-		msg.setUId(UUID.randomUUID());
-		msg.setPassword("imyLab02");
-	
-		XMLEncoderVisitor encoder = new XMLEncoderVisitor();
-	
-		/* encoder.encode(msg);
-	
-		ByteArrayOutputStream s = new ByteArrayOutputStream();
-	
-		encoder.writeDocTo(s);
-		
-		String content = s.toString();
-	
-		System.out.println(content); */
-		
-		// MessageAck 
-		MessageACK mack = new MessageACK();
-		mack.setDescription(" Everything is alright ");
-		mack.setType(MessageType.Ok);
-		
-		encoder.encode(mack);
-	
-		ByteArrayOutputStream s = new ByteArrayOutputStream();
-	
-		encoder.writeDocTo(s);
-		
-		String content = s.toString();
-	
-		System.out.println(content);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	
-	}
-	
-	//... need more test method as necessary...
 }
