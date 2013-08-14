@@ -1,5 +1,7 @@
 package fr.labkira.visitor;
 
+import java.io.IOException;
+
 import fr.labkira.message.Message;
 import fr.labkira.message.MessageACK;
 import fr.labkira.message.MessageAuthentification;
@@ -11,7 +13,7 @@ import fr.labkira.message.MessageUpload;
 public class DumpVisitor implements Visitor {
 
 	@Override
-	public void encode(Message m) {
+	public void encode(Message m) throws IOException  {
 
 		m.accept(this);
 	}

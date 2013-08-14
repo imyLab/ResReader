@@ -79,7 +79,7 @@ public class XMLEncoderVisitor implements Visitor {
 	}
 
 	@Override
-	public void encode(Message m) throws IOException {
+	public void encode(Message m) throws IOException{
 		this.newSession();
 		m.accept(this);
 	}
@@ -117,7 +117,7 @@ public class XMLEncoderVisitor implements Visitor {
 	}
 
 	@Override
-	public void encode(MessageDownload md) throws IOException {
+	public void encode(MessageDownload md) throws IOException  {
 		this.rootElement.setAttribute(MESSAGE_TYPE_ATTRIBUTE,
 				MessageUpload.class.getName());
 		
