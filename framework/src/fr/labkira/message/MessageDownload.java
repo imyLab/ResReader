@@ -33,7 +33,7 @@ public class MessageDownload extends Message {
 	}
 
 	@Override
-	public void accept(Visitor visitor) throws IOException {
+	public void accept(Visitor visitor) throws IOException  {
 
 			visitor.encode(this);
 		
