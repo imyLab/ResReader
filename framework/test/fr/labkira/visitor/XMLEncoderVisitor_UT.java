@@ -80,11 +80,10 @@ public class XMLEncoderVisitor_UT {
 	@Test
 	public void test_MessageDownload() throws TransformerException, ParserConfigurationException, IOException {
 		
-		File file = new File ("C:\\Users\\Imy\\Downloads\\image.jpeg");
+		File file = new File ("image(1).jpeg");
 		BufferedImage img = ImageIO.read(file);
 		MessageDownload md = new MessageDownload(img);
 		UUID id = UUID.randomUUID();
-		
 		md.setUIdPic(id);
 		
 		
