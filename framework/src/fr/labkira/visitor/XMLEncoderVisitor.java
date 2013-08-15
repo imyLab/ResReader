@@ -1,9 +1,7 @@
 package fr.labkira.visitor;
 
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -123,18 +121,18 @@ public class XMLEncoderVisitor implements Visitor {
 		
 		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		
-		ImageIO.write((BufferedImage)md.getImg(), "jpeg", baos);
+		BufferedImage img = ImageIO.read(md.getFile());
+		ImageIO.write(img, "jpeg", baos);
 		String encodedImage = Base64.encodeBase64String(baos.toByteArray());
 		
 		Element uuid = this.xmlDoc.createElement("uuid");
 		uuid.appendChild(this.xmlDoc.createTextNode(md.getUIdPic().toString()));
 
-		Element img = this.xmlDoc.createElement("image");
-		img.appendChild(this.xmlDoc.createTextNode(encodedImage));
+		Element file = this.xmlDoc.createElement("image");
+		file.appendChild(this.xmlDoc.createTextNode(encodedImage));
 
 		this.rootElement.appendChild(uuid);
-		this.rootElement.appendChild(img);
+		this.rootElement.appendChild(file);
 
 	}
 
