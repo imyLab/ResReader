@@ -10,6 +10,9 @@ public class MessageAuthentification extends Message {
 	private String password;
 	private String UserName;
 
+	public MessageAuthentification(){
+		
+	}
 	public MessageAuthentification(UUID UId, String password, String UserName) {
 		this.setPassword(password);
 		this.setUId(UId);
