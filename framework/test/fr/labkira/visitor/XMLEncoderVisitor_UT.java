@@ -81,15 +81,15 @@ public class XMLEncoderVisitor_UT {
 	public void test_MessageDownload() throws TransformerException, ParserConfigurationException, IOException {
 		
 		File file = new File ("image.jpeg");
-		BufferedImage img = ImageIO.read(file);
-		MessageDownload md = new MessageDownload(img);
 		UUID id = UUID.randomUUID();
+		MessageDownload md = new MessageDownload(id,file);
+		
 		md.setUIdPic(id);
 		
 		
 		
 		assertEquals(id, md.getUIdPic());
-		assertEquals(img, md.getImg());
+		assertEquals(file, md.getFile());
 
 		XMLEncoderVisitor encoder = new XMLEncoderVisitor();
 		encoder.encode(md);
