@@ -11,6 +11,15 @@ public class MessageACK extends Message {
 	private MessageType type;
 	private String description;
 
+	public MessageACK(MessageType type, String description) {
+		this.setType(type);
+		this.setDescription(description);
+	}
+
+	public MessageACK(MessageType type) {
+		this.setType(type);
+	}
+
 	@Override
 	public void accept(Visitor visitor) {
 
