@@ -1,6 +1,7 @@
 package fr.labkira.message;
 
 import java.awt.Image;
+import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -10,18 +11,20 @@ import fr.labkira.visitor.Visitor;
 public class MessageDownload extends Message {
 
 	private UUID UIdPic;
-	public Image img;
-
-	public Image getImg() {
-		return img;
+	public File file;
+	
+	public MessageDownload(UUID id, File file){
+		this.setUIdPic(UIdPic);
+		this.setFile(file);
+		
 	}
 
-	public void setImg(Image img) {
-		this.img = img;
+	public File getFile() {
+		return file;
 	}
 
-	public MessageDownload(Image img) {
-		this.setImg(img);
+	public void setFile(File file) {
+		this.file = file;
 	}
 
 	public UUID getUIdPic() {
