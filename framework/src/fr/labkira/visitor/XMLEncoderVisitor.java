@@ -159,7 +159,7 @@ public class XMLEncoderVisitor implements Visitor {
 	@Override
 	public void encode(MessageStop ms) {
 		this.rootElement.setAttribute(MESSAGE_TYPE_ATTRIBUTE,
-				MessageDownload.class.getName());
+				MessageStop.class.getName());
 		Element stop = this.xmlDoc.createElement("stop");
 		this.rootElement.appendChild(stop);
 
