@@ -24,7 +24,7 @@ public interface Visitor {
 
 	public abstract void encode(MessageDownload md) throws IOException ;
 
-	public abstract void encode(MessageUpload mu);
+	public abstract void encode(MessageUpload mu) throws IOException;
 
 	public abstract void encode(MessageStop ms);
 
