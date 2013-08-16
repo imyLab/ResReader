@@ -137,18 +137,23 @@ public class XMLEncoderVisitor implements Visitor {
 	}
 
 	@Override
-	public void encode(MessageUpload mu) {
+	public void encode(MessageUpload mu) throws IOException {
+		
 		this.rootElement.setAttribute(MESSAGE_TYPE_ATTRIBUTE,
 				MessageUpload.class.getName());
-
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		BufferedImage img = ImageIO.read(mu.getFile());
+		ImageIO.write(img, "jpeg", baos);
+		String encodedImage = Base64.encodeBase64String(baos.toByteArray());
+		
 		Element uuid = this.xmlDoc.createElement("uuid");
 		uuid.appendChild(this.xmlDoc.createTextNode(mu.getIdPic().toString()));
 
-		Element img = this.xmlDoc.createElement("image");
-		img.appendChild(this.xmlDoc.createTextNode(mu.getImg().toString()));
+		Element file = this.xmlDoc.createElement("image");
+		file.appendChild(this.xmlDoc.createTextNode(encodedImage));
 
 		this.rootElement.appendChild(uuid);
-		this.rootElement.appendChild(img);
+		this.rootElement.appendChild(file);
 	}
 
 	@Override
