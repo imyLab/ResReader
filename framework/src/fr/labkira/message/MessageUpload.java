@@ -1,6 +1,8 @@
 package fr.labkira.message;
 
-import java.awt.Image;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.UUID;
 
 import fr.labkira.visitor.Visitor;
@@ -9,22 +11,17 @@ import fr.labkira.visitor.Visitor;
 public class MessageUpload extends Message {
 
 	private UUID IdPic;
-	private Image img;
+	private File file;
 
-	public Image getImg() {
-		return img;
-	}
+	
 
-	public void setImg(Image img) {
-		this.img = img;
-	}
-
-	public MessageUpload(Image img) {
-		this.setImg(img);
+	public MessageUpload(UUID IdPic, File file) {
+		this.setFile(file);
+		this.setIdPic(IdPic);
 	}
 
 	@Override
-	public void accept(Visitor visitor) {
+	public void accept(Visitor visitor) throws IOException {
 
 		visitor.encode(this);
 
@@ -36,6 +33,14 @@ public class MessageUpload extends Message {
 
 	public void setIdPic(UUID idPic) {
 		IdPic = idPic;
+	}
+
+	public File getFile() {
+		return file;
+	}
+
+	public void setFile(File file) {
+		this.file = file;
 	}
 
 }
