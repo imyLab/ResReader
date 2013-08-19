@@ -3,10 +3,12 @@ package fr.labkira.visitor;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.UUID;
 
 import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
@@ -24,10 +26,12 @@ import org.apache.commons.codec.binary.Base64;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import fr.labkira.message.Message;
 import fr.labkira.message.MessageACK;
+import fr.labkira.message.MessageACK.MessageType;
 import fr.labkira.message.MessageAuthentification;
 import fr.labkira.message.MessageDownload;
 import fr.labkira.message.MessageListOfPics;
@@ -39,50 +43,14 @@ import fr.labkira.message.MessageUpload;
 public class XmlDecoder {
 	
 	private Element rootElement;
-	private Document xmlDoc;
 	private DocumentBuilder docBuilder;
-	private String xmlMessage;
 
-
-	public XmlDecoder() throws ParserConfigurationException, SAXException, IOException {
-
-		DocumentBuilderFactory docFactory = DocumentBuilderFactory
-				.newInstance();
-		this.docBuilder = docFactory.newDocumentBuilder();
-
-		this.newSession();
-	}
-
-
-	protected void newSession() throws SAXException, IOException {
-
-		this.xmlDoc = this.docBuilder.parse(xmlMessage);
-		this.rootElement = this.xmlDoc.getDocumentElement();
+	
+	public Message decode(String xmlM) throws SAXException, IOException {
 		
-	}
-
-	
-	
-	
-	public void readFromDoc(InputStream is) throws TransformerException, Exception {
-		
-		
-		InputStream input = new ByteArrayInputStream( xmlMessage.getBytes( new String() ) );
-	
-		TransformerFactory transformerFactory = TransformerFactory
-				.newInstance();
-		Transformer transformer = transformerFactory.newTransformer();
-		StreamSource source = new StreamSource(input);
-		DOMResult result = new DOMResult(xmlDoc);
-
-		transformer.transform(source, result);
-	}
-	
-	
-	public Message decode(String xmlM) {
 		Message m = null;
-		String node= xmlDoc.getFirstChild().toString();
-		if(node.equals("message type")){
+		String node= this.rootElement.getAttributeNode("message type").toString();
+		
 			switch (node) {
 			case "fr.labkira.message.MessageUpload":
 				m = this.decodeMessageUploadload(xmlM);
@@ -111,34 +79,51 @@ public class XmlDecoder {
 				m = this.decode(xmlM);
 				break;
 			}
-		}
+	
 		return m;
 	}
 
-	public MessageAuthentification decodeMessageAuthentification(String xmlMa) {
+	public MessageAuthentification decodeMessageAuthentification(String xmlMa) throws SAXException, IOException {
+		Document d = this.docBuilder.parse(new ByteArrayInputStream(xmlMa.getBytes()));
+		this.rootElement = (Element) d.getElementsByTagName(MessageACK.class.getName());	
 		
+		UUID uuid = java.util.UUID.fromString(this.rootElement.getAttribute("uuid"));
+		String  password = this.rootElement.getAttribute("password");
+		String username = this.rootElement.getAttribute("userName");
 		
-		return null;
+		return new MessageAuthentification(uuid, password, username);
 	}
 
-	public MessageACK decodeMessageACK(String xmlMack) {
-
-		return null;
+	public MessageACK decodeMessageACK(String xmlMack) throws SAXException, IOException {
+		
+		Document d = this.docBuilder.parse(new ByteArrayInputStream(xmlMack.getBytes()));
+		this.rootElement = (Element) d.getElementsByTagName(MessageACK.class.getName());
+		
+		
+		String  type = this.rootElement.getAttribute("type");
+		String description = this.rootElement.getAttribute("descrption");
+		
+		return new MessageACK(MessageType.valueOf(type),description);
 	}
 
-	public MessageDownload decodeMessageDownload(String xmlMd) {
-
+	public MessageDownload decodeMessageDownload(String xmlMd) throws SAXException {
+		MessageDownload md = null;
 		try {
-			xmlMd = rootElement.getTextContent();
-			byte[] bytes = Base64.decodeBase64(xmlMd);
+			Document d = this.docBuilder.parse(new ByteArrayInputStream(xmlMd.getBytes()));
+			this.rootElement = (Element) d.getElementsByTagName(MessageDownload.class.getName());
+			byte[] bytes = Base64.decodeBase64(this.rootElement.getAttribute("image"));
 			BufferedImage image = ImageIO.read(new ByteArrayInputStream(bytes));
+			
+			UUID uuid = java.util.UUID.fromString(this.rootElement.getAttribute("uuid"));
+			md.setUIdPic(uuid);
+			md.setFile(new File(image.toString()));
 			//md.setImg(image);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		return null;
+		return md;
 	}
 
 	public MessageUpload decodeMessageUploadload(String xmlMu) {
@@ -146,11 +131,14 @@ public class XmlDecoder {
 	}
 
 	public MessageStop decodeMessageStop(String xmlMs) {
-		return null;
+			
+		return new MessageStop();
 	}
 
 	public MessageListOfPics decodeMessageListOfPics(String xmlMl) {
-		return null;
+		
+		
+		return new MessageListOfPics();
 	}
 
 }
