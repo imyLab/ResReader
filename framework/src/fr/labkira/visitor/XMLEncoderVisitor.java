@@ -86,7 +86,7 @@ public class XMLEncoderVisitor implements Visitor {
 	public void encode(MessageAuthentification ma) {
 		this.rootElement.setAttribute(MESSAGE_TYPE_ATTRIBUTE,
 				MessageAuthentification.class.getName());
-
+		
 		Element uuid = this.xmlDoc.createElement("uuid");
 		uuid.appendChild(this.xmlDoc.createTextNode(ma.getUId().toString()));
 
