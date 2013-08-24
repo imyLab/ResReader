@@ -45,17 +45,26 @@ public class XmlDecoder {
 	private Element rootElement;
 	private DocumentBuilder docBuilder;
 
+	public XmlDecoder() throws ParserConfigurationException {
+
+		DocumentBuilderFactory docFactory = DocumentBuilderFactory
+				.newInstance();
+		this.docBuilder = docFactory.newDocumentBuilder();
+
+	}
+
 	
 	public Message decode(String xmlM) throws SAXException, IOException {
 		
+		Document d = this.docBuilder.parse(new ByteArrayInputStream(xmlM.getBytes()));
 		Message m = null;
-		String node= this.rootElement.getAttributeNode("message type").toString();
+		String node = d.getElementsByTagName("message").item(0).getAttributes().item(0).toString();
 		
 			switch (node) {
 			case "fr.labkira.message.MessageUpload":
 				m = this.decodeMessageUploadload(xmlM);
 				break;
-			case "fr.labkira.message.MessageDownload":
+			case "fr.labkira.messaget.MessageDownload":
 				m = this.decodeMessageDownload(xmlM);
 				break;
 				
@@ -73,10 +82,6 @@ public class XmlDecoder {
 				
 			case "fr.labkira.message.MessageAuthentification":
 				m = this.decodeMessageAuthentification(xmlM);
-				break;
-
-			default:
-				m = this.decode(xmlM);
 				break;
 			}
 	
