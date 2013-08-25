@@ -24,7 +24,7 @@ import fr.labkira.message.MessageAuthentification;
 import fr.labkira.message.MessageDownload;
 
 public class TestDecoder {
-	
+	/*
 	@Test
 	public void test_DecodeMessageAuthentication() throws TransformerException, ParserConfigurationException, SAXException, IOException {
 
@@ -65,7 +65,7 @@ public class TestDecoder {
 		
 		assertEquals("fr.labkira.message.MessageAuthentification", attribute.getTextContent());
 		System.out.println(message.getTextContent());
-	}
+	}*/
 	
 	@Test
 	public void test_DecodeMessageDownload() throws TransformerException, ParserConfigurationException, SAXException, IOException {
@@ -85,8 +85,6 @@ public class TestDecoder {
 		encoder.writeDocTo(s);
 		String content = s.toString();
 		
-		assertNotNull(s);
-				
 		DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance()
 				.newDocumentBuilder();
 
