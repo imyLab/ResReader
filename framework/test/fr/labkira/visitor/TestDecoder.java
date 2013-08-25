@@ -62,7 +62,7 @@ public class TestDecoder {
 		//And here we got what we want :
 		
 		assertEquals("fr.labkira.message.MessageAuthentification", attribute.getTextContent());
-		System.out.println(attribute.getTextContent());
+		System.out.println(message.getTextContent());
 	}
 
 }
